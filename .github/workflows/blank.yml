@@ -5,9 +5,9 @@ on:
     branches: 
          - main
          - dev
-         -  feature-01:wq
+         -  feature*
 jobs:
-   if_main:
+   test:
       runs-on: ubuntu-latest
       if: github.ref == 'refs/heads/main'
       steps:
