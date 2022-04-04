@@ -25,7 +25,7 @@ jobs:
                echo "Github Action"
    if_feature:
        runs-on: ubuntu-latest
-       if: {{ github.ref == 'refs/heads/feature-01' }}
+       if: [[ ${{ github.event.ref }} = ~ ^refs/heads/feature-[0-9]+$ ]]
        steps:
          - uses: actions/checkout@v2
          - run: |
