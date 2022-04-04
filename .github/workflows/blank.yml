@@ -5,7 +5,16 @@ on:
     branches: 
          - main
          - dev
+         - feature*
 jobs:
+   if_main:
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/main'
+      steps:
+        - uses: actions/checkout@v2
+        - run: |
+           echo "Branch = test"
+           echo "Github Action"
    if_main:
        runs-on: ubuntu-latest
        if: github.ref == 'refs/heads/main'
@@ -14,12 +23,12 @@ jobs:
          - run: |
                echo "Branch = main"
                echo "Github Action"
-   if_dev:
+   if_feature:
        runs-on: ubuntu-latest
-       if: github.ref == 'refs/heads/dev'
+       if: github.ref == 'refs/heads/feature*'
        steps:
          - uses: actions/checkout@v2
          - run: |
-               echo "Bramnch = dev"
+               echo "Bramnch = feature"
                echo "Github Action"
        
