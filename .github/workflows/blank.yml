@@ -24,12 +24,13 @@ jobs:
          - run: |
                echo "Branch = main"
                echo "Github Action"
-   name:
+   - name:
      id: check-barnch
      run: |
         if [[ ${{ github.event.ref }} =~ ^refs/heads/feature-[0-9]+$ ]]; then
          echo ::set-output name=match::true
         fi
+
    if_feature:
        runs-on: ubuntu-latest
        if: steps.check-tag.outputs.match == 'true'
