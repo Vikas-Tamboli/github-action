@@ -24,21 +24,27 @@ jobs:
          - run: |
                echo "Branch = main"
                echo "Github Action"
-   name:
+   if_featu:
        runs-on: ubuntu-latest
-       id: check-branch
-         - run: |
-            if [[ ${{ github.event.ref }} =~ ^refs/heads/feature-[0-9]+$ ]]; then
-              echo ::set-output name=match::true
-            fi
-
-   if_feature:
-       runs-on: ubuntu-latest
-       if: steps.check-branch.outputs.match == 'true'
        steps:
-         - uses: actions/checkout@v2
-         - run: |
-               echo "Bramnch = feature"
-               echo "Github Action"
+               - name: Check Branch
+                 id: check-branch
+                 run: |
+                   if [[ ${{ github.event.ref }} =~ ^refs/heads/feature-[0-9]+$ ]]; then
+                     echo ::set-output name=match::true
+                   fi
+               - name: build
+                 if: steps.check-branch.outputs.match == 'true'
+                 run: |
+                     echo "Tag is a match"
+
+                     #   if_feature:
+                     #       runs-on: ubuntu-latest
+                     #       if: steps.check-branch.outputs.match == 'true'
+                     #       steps:
+                     #         - uses: actions/checkout@v2
+                     #         - run: |
+                     #               echo "Bramnch = feature"
+                     #               echo "Github Action"
 
        
