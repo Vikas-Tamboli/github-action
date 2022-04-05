@@ -5,7 +5,17 @@ on:
     branches: 
          - main
          - dev
+         -  feature*
 jobs:
+   test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - run: |
+           echo "Branch = test"
+           echo "Github Action"
+           echo "BRANCH=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+
    if_main:
        runs-on: ubuntu-latest
        if: github.ref == 'refs/heads/main'
@@ -14,12 +24,27 @@ jobs:
          - run: |
                echo "Branch = main"
                echo "Github Action"
-   if_dev:
+   if_featu:
        runs-on: ubuntu-latest
-       if: github.ref == 'refs/heads/dev'
        steps:
-         - uses: actions/checkout@v2
-         - run: |
-               echo "Bramnch = dev"
-               echo "Github Action"
+               - name: Check Branch
+                 id: check-branch
+                 run: |
+                   if [[ ${{ github.event.ref }} =~ ^refs/heads/feature-[0-9]+$ ]]; then
+                     echo ::set-output name=match::true
+                   fi
+               - name: build
+                 if: steps.check-branch.outputs.match == 'true'
+                 run: |
+                     echo "Tag is a match"
+
+                     #   if_feature:
+                     #       runs-on: ubuntu-latest
+                     #       if: steps.check-branch.outputs.match == 'true'
+                     #       steps:
+                     #         - uses: actions/checkout@v2
+                     #         - run: |
+                     #               echo "Bramnch = feature"
+                     #               echo "Github Action"
+
        
