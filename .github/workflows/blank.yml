@@ -25,25 +25,13 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         #        with:
         #          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      
-      - name: if dev, terraform init, validate, plan, apply
-        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
-        run: |
-          echo $AWS_ACCESS_KEY_ID
-          echo $AWS_SECRET_ACCESS_KEY
-          sh ./script.sh      
-        env:
-          TF_WORKSPACE: "dev"
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: if main, terraform init, validate, plan, apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          echo $AWS_ACCESS_KEY_ID
-          echo $AWS_SECRET_ACCESS_KEY
-          sh ./script.sh
         env:
-          TF_WORKSPACE: "prod"
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+                terraform init -input=false
+                terraform plan 
+                terraform --auto-approve
