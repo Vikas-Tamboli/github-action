@@ -29,6 +29,8 @@ jobs:
       - name: if dev, terraform init, validate, plan, apply
         if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
         run: |
+          echo $AWS_ACCESS_KEY_ID
+          echo $AWS_SECRET_ACCESS_KEY
           sh ./script.sh      
         env:
           TF_WORKSPACE: "dev"
@@ -38,6 +40,8 @@ jobs:
       - name: if main, terraform init, validate, plan, apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
+          echo $AWS_ACCESS_KEY_ID
+          echo $AWS_SECRET_ACCESS_KEY
           sh ./script.sh
         env:
           TF_WORKSPACE: "prod"
