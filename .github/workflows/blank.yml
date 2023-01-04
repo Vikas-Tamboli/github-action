@@ -9,7 +9,7 @@ on:
 jobs:
   terraform:
     name: 'Terraform-dev'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     defaults:
       run:
@@ -34,4 +34,4 @@ jobs:
         run: |
                 terraform init -input=false
                 terraform plan 
-                terraform destroy --auto-approve
+                #terraform destroy --auto-approve
