@@ -8,8 +8,8 @@ on:
 
 jobs:
   terraform:
-    name: 'Terraform-dev'
-    runs-on: self-hosted
+    name: 'test ci'
+    runs-on: ubuntu-latest
 
     #    defaults:
     #      run:
