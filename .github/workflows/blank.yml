@@ -19,13 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-          # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-
       - name: if main, terraform init, validate, plan, apply
-        if: github.event.head_commit.modified == 'Dockerfile'
+        if: contains(github.event.head_commit.message, 'smoke_test')
         run: |
                 echo "docker image creation"
