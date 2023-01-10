@@ -8,13 +8,10 @@ on:
 
 jobs:
    terraform:
-    name: 'terraform'
+    name: 'terraform iac'
     if: contains(github.event.head_commit.message, 'build-iac')
     runs-on: ubuntu-latest
 
-    #    defaults:
-    #      run:
-    #        shell: bash
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
@@ -24,18 +21,15 @@ jobs:
         run: |
                 echo "iac creation using terrafrom"
    build_image:
-    name: 'test ci'
-    if: contains(github.event.head_commit.message, 'biuild-image')
+    name: 'docker image creation'
+    if: contains(github.event.head_commit.message, 'build-image')
     runs-on: ubuntu-latest
 
-    #    defaults:
-    #      run:
-    #        shell: bash
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: if main, terraform init, validate, plan, apply
+      - name: if main, prod docker image creation
         run: |
                 echo "docker image creation"
