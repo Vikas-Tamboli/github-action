@@ -32,4 +32,4 @@ jobs:
 
       - name: if main, prod docker image creation
         run: |
-                echo "docker image creation"
+                echo "prod docker image creation"
