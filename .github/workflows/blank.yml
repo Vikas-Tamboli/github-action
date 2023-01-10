@@ -17,5 +17,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform plan
       - name: Build Docker Image
-        if: github.event.head_commit.modified == 'Dockerfile'
+        if: contains(github.event.head_commit.modified, 'Dockerfile')
         run: echo "docker image creation"
