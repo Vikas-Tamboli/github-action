@@ -63,6 +63,7 @@ jobs:
       - name: Update image tag
         run: |
           cd app
+          IMAGE_TAG=$(git rev-parse --short HEAD)
           sed -i "s/image: nginx:.*/image: nginx:$IMAGE_TAG/" deployment.yaml
           git config --local user.email "vikas.tamboli35@gmail.com"
           git config --local user.name "vikas-tamboli"
